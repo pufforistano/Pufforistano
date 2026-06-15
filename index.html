@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drop FiHP 200K</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1015;
+            --card-bg: #1c1d24;
+            --primary: #00f2fe;
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --text-main: #ffffff;
+            --text-muted: #8b8d97;
+            --border: #2a2b36;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 15px 10px 30px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-container {
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: rgba(79, 172, 254, 0.15);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 10px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-img {
+            width: 100%;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            max-height: 200px; /* Ridotto leggermente per recuperare spazio */
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .contact-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.15);
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 20px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Nuova struttura per mantenere tutto compatto con le immagini */
+        .flavor-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px; /* Padding ridotto per recuperare spazio */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        /* Stile della miniatura */
+        .flavor-thumb {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 12px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-color); /* Sfondo in caso di immagine trasparente */
+            flex-shrink: 0;
+        }
+
+        .flavor-info {
+            flex: 1;
+            padding-right: 10px;
+            min-width: 0; /* Previene sbavature su schermi piccolissimi */
+        }
+
+        .flavor-name {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Taglia il testo se troppo lungo */
+        }
+
+        .flavor-desc {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Mostra massimo 2 righe */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .stepper button {
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stepper input {
+            width: 24px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 13px;
+            pointer-events: none;
+        }
+
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .status-message {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .status-success { background: rgba(46, 213, 115, 0.1); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.2); }
+        .status-error { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
+        .status-warning { background: rgba(255, 165, 2, 0.1); color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.2); margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <span class="badge">Esclusiva 8-in-1</span>
+        <h1>Prenota FiHP 200K</h1>
+    </div>
+
+    <!-- Immagine Prodotto Principale -->
+    <img src="1000151219.png" alt="FiHP 200K Puffs" class="hero-img">
+
+    <form id="orderForm">
+        
+        <div class="input-group">
+            <label for="contact">Come ti contattiamo?</label>
+            <input type="text" id="contact" class="contact-input" placeholder="@tuo_instagram o +39..." required autocomplete="off">
+        </div>
+
+        <div class="section-title">Componi il tuo ordine</div>
+
+        <!-- Gusto 01 -->
+        <div class="flavor-card">
+            <img src="01.png" alt="01" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name">01. Red Bull Mix</div>
+                <div class="flavor-desc">Blueberry Ice, Watermelon Ice, Strawberry Kiwi</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty1', -1)">-</button>
+                <input type="number" id="qty1" class="flavor-input" data-name="01. Red Bull Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty1', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- Gusto 03 -->
+        <div class="flavor-card">
+            <img src="03.png" alt="03" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name">03. Lemon Peach Mix</div>
+                <div class="flavor-desc">Tropical Fruit, Pineapple Coconut, Blue Razz</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty3', -1)">-</button>
+                <input type="number" id="qty3" class="flavor-input" data-name="03. Lemon Peach Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty3', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- Gusto 05 -->
+        <div class="flavor-card">
+            <img src="05.png" alt="05" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name">05. Grape Ice Mix</div>
+                <div class="flavor-desc">Peach Berry, Fizzy Cherry Ice, Gummy Bear</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty5', -1)">-</button>
+                <input type="number" id="qty5" class="flavor-input" data-name="05. Grape Ice Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty5', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- Gusto 06 -->
+        <div class="flavor-card">
+            <img src="06.png" alt="06" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name">06. Love 666 Mix</div>
+                <div class="flavor-desc">Pineapple Mango Peach, Cherry Cola Ice, Rainbow Candy</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty6', -1)">-</button>
+                <input type="number" id="qty6" class="flavor-input" data-name="06. Love 666 Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty6', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- Gusto 07 -->
+        <div class="flavor-card">
+            <img src="07.png" alt="07" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name">07. Orange Soda Mix</div>
+                <div class="flavor-desc">Watermelon Lemon, Watermelon Bubblegum, Lady Killa</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty7', -1)">-</button>
+                <input type="number" id="qty7" class="flavor-input" data-name="07. Orange Soda Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty7', 1)">+</button>
+            </div>
+        </div>
+
+        <div id="validationWarning" class="status-message status-warning">⚠️ Aggiungi almeno 1 pezzo al carrello.</div>
+
+        <button type="submit" id="submitBtn" class="submit-btn">Conferma Prenotazione</button>
+        
+        <div id="successMessage" class="status-message status-success">✅ Richiesta inviata! Ti scriveremo a breve.</div>
+        <div id="errorMessage" class="status-message status-error">❌ Errore di connessione. Riprova.</div>
+    </form>
+</div>
+
+<script>
+    // --- INSERISCI QUI I TUOI DATI DI TELEGRAM ---
+    const BOT_TOKEN = '8806109821:AAF6LUzSn2eNU2vO7yy1WDkYUPmutDB2_jA'; 
+    const CHAT_ID = '-5502682118';
+    // --------------------------------------------
+
+    function updateQty(inputId, change) {
+        const input = document.getElementById(inputId);
+        let newValue = parseInt(input.value) + change;
+        if (newValue < 0) newValue = 0;
+        if (newValue > 99) newValue = 99;
+        input.value = newValue;
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const warning = document.getElementById('validationWarning');
+        const btn = document.getElementById('submitBtn');
+        const contact = document.getElementById('contact').value;
+        
+        const inputs = document.querySelectorAll('.flavor-input');
+        let gustiSceltiText = "";
+        let totalePezzi = 0;
+
+        inputs.forEach(input => {
+            const qty = parseInt(input.value);
+            if (qty > 0) {
+                const name = input.getAttribute('data-name');
+                gustiSceltiText += `🔹 ${name}: **x${qty}**\n`;
+                totalePezzi += qty;
+            }
+        });
+
+        if (totalePezzi === 0) {
+            warning.style.display = 'block';
+            setTimeout(() => { warning.style.display = 'none'; }, 3000);
+            return;
+        } else {
+            warning.style.display = 'none';
+        }
+        
+        btn.innerText = 'Invio in corso...';
+        btn.disabled = true;
+
+        const text = `🚀 **NUOVO ORDINE FiHP 200K**\n\n📱 **Contatto:** ${contact}\n\n📦 **Carrello:**\n${gustiSceltiText}\n📊 **Totale Pezzi:** ${totalePezzi}`;
+
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: text,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.ok) {
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+                
+                document.getElementById('contact').value = '';
+                inputs.forEach(input => input.value = 0);
+                
+                setTimeout(() => { document.getElementById('successMessage').style.display = 'none'; }, 4000);
+            } else { throw new Error('Errore Telegram'); }
+        })
+        .catch(error => {
+            document.getElementById('errorMessage').style.display = 'block';
+            setTimeout(() => { document.getElementById('errorMessage').style.display = 'none'; }, 4000);
+        })
+        .finally(() => {
+            btn.innerText = 'Conferma Prenotazione';
+            btn.disabled = false;
+        });
+    });
+</script>
+
+</body>
+</html>
