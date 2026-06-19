@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drop FiHP 200K</title>
+    <title>Puff Oristano - Drop FiHP 200K</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,6 +14,7 @@
             --text-main: #ffffff;
             --text-muted: #8b8d97;
             --border: #2a2b36;
+            --price-color: #2ed573;
         }
 
         * {
@@ -54,12 +55,19 @@
         }
 
         h1 {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: 700;
-            margin-top: 10px;
+            margin-top: 5px;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-weight: 500;
         }
 
         .hero-img {
@@ -69,7 +77,7 @@
             margin-bottom: 20px;
             object-fit: cover;
             border: 1px solid var(--border);
-            max-height: 200px; /* Ridotto leggermente per recuperare spazio */
+            max-height: 200px;
         }
 
         .input-group {
@@ -109,19 +117,17 @@
             border-bottom: 1px solid var(--border);
         }
 
-        /* Nuova struttura per mantenere tutto compatto con le immagini */
         .flavor-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 10px; /* Padding ridotto per recuperare spazio */
+            padding: 10px;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             transition: transform 0.2s;
         }
 
-        /* Stile della miniatura */
         .flavor-thumb {
             width: 45px;
             height: 45px;
@@ -129,14 +135,20 @@
             object-fit: cover;
             margin-right: 12px;
             border: 1px solid var(--border);
-            background-color: var(--bg-color); /* Sfondo in caso di immagine trasparente */
+            background-color: var(--bg-color);
             flex-shrink: 0;
         }
 
         .flavor-info {
             flex: 1;
             padding-right: 10px;
-            min-width: 0; /* Previene sbavature su schermi piccolissimi */
+            min-width: 0;
+        }
+
+        .flavor-name-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .flavor-name {
@@ -146,7 +158,14 @@
             color: var(--text-main);
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis; /* Taglia il testo se troppo lungo */
+            text-overflow: ellipsis;
+        }
+
+        .flavor-price {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--price-color);
+            margin-left: 5px;
         }
 
         .flavor-desc {
@@ -155,7 +174,7 @@
             margin-top: 3px;
             line-height: 1.3;
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* Mostra massimo 2 righe */
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -193,10 +212,27 @@
             pointer-events: none;
         }
 
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
+        .price-summary {
+            background: rgba(46, 213, 115, 0.05);
+            border: 1px dashed rgba(46, 213, 115, 0.3);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .summary-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--price-color);
         }
 
         .submit-btn {
@@ -208,7 +244,7 @@
             border-radius: 10px;
             font-size: 15px;
             font-weight: 700;
-            margin-top: 20px;
+            margin-top: 15px;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
         }
@@ -226,6 +262,34 @@
         .status-success { background: rgba(46, 213, 115, 0.1); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.2); }
         .status-error { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
         .status-warning { background: rgba(255, 165, 2, 0.1); color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.2); margin-top: 10px; }
+
+        /* STILE PULSANTE WHATSAPP FLUTTUANTE */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+        }
+        .whatsapp-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
     </style>
 </head>
 <body>
@@ -233,10 +297,10 @@
 <div class="app-container">
     <div class="header">
         <span class="badge">Esclusiva 8-in-1</span>
-        <h1>Prenota FiHP 200K</h1>
+        <h1>Puff Oristano</h1>
+        <div class="subtitle">Prenotazione FiHP 200K</div>
     </div>
 
-    <!-- Immagine Prodotto Principale -->
     <img src="1000151219.png" alt="FiHP 200K Puffs" class="hero-img">
 
     <form id="orderForm">
@@ -248,12 +312,14 @@
 
         <div class="section-title">Componi il tuo ordine</div>
 
-        <!-- Gusto 01 -->
         <div class="flavor-card">
             <img src="01.png" alt="01" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">01. Red Bull Mix</div>
-                <div class="flavor-desc">Blueberry Ice, Watermelon Ice, Strawberry Kiwi</div>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">01. Red Bull Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Red Bull, Blueberry Ice, Watermelon Ice, Strawberry Kiwi</div>
             </div>
             <div class="stepper">
                 <button type="button" onclick="updateQty('qty1', -1)">-</button>
@@ -262,12 +328,14 @@
             </div>
         </div>
 
-        <!-- Gusto 03 -->
         <div class="flavor-card">
             <img src="03.png" alt="03" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">03. Lemon Peach Mix</div>
-                <div class="flavor-desc">Tropical Fruit, Pineapple Coconut, Blue Razz</div>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">03. Lemon Peach Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Lemon Peach, Tropical Fruit, Pineapple Coconut, Blue Razz</div>
             </div>
             <div class="stepper">
                 <button type="button" onclick="updateQty('qty3', -1)">-</button>
@@ -276,12 +344,14 @@
             </div>
         </div>
 
-        <!-- Gusto 05 -->
         <div class="flavor-card">
             <img src="05.png" alt="05" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">05. Grape Ice Mix</div>
-                <div class="flavor-desc">Peach Berry, Fizzy Cherry Ice, Gummy Bear</div>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">05. Grape Ice Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Grape Ice, Peach Berry, Fizzy Cherry Ice, Gummy Bear</div>
             </div>
             <div class="stepper">
                 <button type="button" onclick="updateQty('qty5', -1)">-</button>
@@ -290,12 +360,14 @@
             </div>
         </div>
 
-        <!-- Gusto 06 -->
         <div class="flavor-card">
             <img src="06.png" alt="06" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">06. Love 666 Mix</div>
-                <div class="flavor-desc">Pineapple Mango Peach, Cherry Cola Ice, Rainbow Candy</div>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">06. Love 666 Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Love 666, Pineapple Mango Peach, Cherry Cola Ice, Rainbow Candy</div>
             </div>
             <div class="stepper">
                 <button type="button" onclick="updateQty('qty6', -1)">-</button>
@@ -304,18 +376,25 @@
             </div>
         </div>
 
-        <!-- Gusto 07 -->
         <div class="flavor-card">
             <img src="07.png" alt="07" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">07. Orange Soda Mix</div>
-                <div class="flavor-desc">Watermelon Lemon, Watermelon Bubblegum, Lady Killa</div>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">07. Orange Soda Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Orange Soda, Watermelon Lemon, Watermelon Bubblegum, Lady Killa</div>
             </div>
             <div class="stepper">
                 <button type="button" onclick="updateQty('qty7', -1)">-</button>
                 <input type="number" id="qty7" class="flavor-input" data-name="07. Orange Soda Mix" value="0" readonly>
                 <button type="button" onclick="updateQty('qty7', 1)">+</button>
             </div>
+        </div>
+
+        <div class="price-summary">
+            <span class="summary-label">Totale (<span id="totalPieces">0</span> pz):</span>
+            <span class="summary-total" id="totalPrice">0€</span>
         </div>
 
         <div id="validationWarning" class="status-message status-warning">⚠️ Aggiungi almeno 1 pezzo al carrello.</div>
@@ -327,11 +406,19 @@
     </form>
 </div>
 
+<a href="https://wa.me/447352813508" class="whatsapp-btn" target="_blank">
+    <svg viewBox="0 0 24 24">
+        <path d="M12.004 2c-5.517 0-9.996 4.478-9.996 9.995 0 1.763.458 3.42 1.258 4.873l-1.336 4.887 5.006-1.314c1.4.757 2.99 1.189 4.68 1.189 5.517 0 9.996-4.478 9.996-9.995 0-5.517-4.479-9.995-9.996-9.995zm4.721 14.195c-.21.592-1.222 1.127-1.68 1.168-.459.04-1.011.066-1.651-.141-2.909-.942-4.856-3.83-5.002-4.023-.146-.192-1.183-1.572-1.183-2.996 0-1.424.746-2.124 1.011-2.407.265-.283.582-.353.776-.353.195 0 .39.002.56.011.177.01.415-.069.649.479.243.573.83 2.02.902 2.164.072.145.12.313.022.509-.098.196-.146.318-.292.49-.146.173-.307.385-.439.516-.146.145-.3.303-.128.598.172.295.765 1.261 1.642 2.042.129.115.228.182.355.226.402.13.769.112 1.058.069.322-.048.991-.406 1.13-.798.139-.392.139-.728.097-.798-.041-.07-.167-.111-.351-.203-.183-.093-1.084-.535-1.25-.595-.166-.06-.287-.092-.41.092-.122.185-.473.595-.58 1.171a.333.333 0 01-.166.19c-.318.156-1.264.466-2.408-.553-.889-.792-1.49-1.77-1.664-2.069-.174-.298-.019-.459.131-.607.135-.133.298-.348.447-.522.149-.174.199-.298.298-.497.1-.198.05-.373-.025-.522-.075-.149-.665-1.603-.913-2.195-.24-.576-.486-.497-.665-.506-.172-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413z"/>
+    </svg>
+    <span>Contattaci</span>
+</a>
+
 <script>
-    // --- INSERISCI QUI I TUOI DATI DI TELEGRAM ---
+    // --- DATI DI TELEGRAM VERIFICATI E FUNZIONANTI ---
     const BOT_TOKEN = '8806109821:AAF6LUzSn2eNU2vO7yy1WDkYUPmutDB2_jA'; 
     const CHAT_ID = '-1003705720150';
-    // --------------------------------------------
+    const PREZZO_UNITARIO = 20;
+    // -------------------------------------------------
 
     function updateQty(inputId, change) {
         const input = document.getElementById(inputId);
@@ -339,6 +426,19 @@
         if (newValue < 0) newValue = 0;
         if (newValue > 99) newValue = 99;
         input.value = newValue;
+        
+        updateLiveTotal();
+    }
+
+    function updateLiveTotal() {
+        const inputs = document.querySelectorAll('.flavor-input');
+        let totalePezzi = 0;
+        inputs.forEach(input => {
+            totalePezzi += parseInt(input.value);
+        });
+        
+        document.getElementById('totalPieces').innerText = totalePezzi;
+        document.getElementById('totalPrice').innerText = (totalePezzi * PREZZO_UNITARIO) + '€';
     }
 
     document.getElementById('orderForm').addEventListener('submit', function(e) {
@@ -372,7 +472,8 @@
         btn.innerText = 'Invio in corso...';
         btn.disabled = true;
 
-        const text = `🚀 **NUOVO ORDINE FiHP 200K**\n\n📱 **Contatto:** ${contact}\n\n📦 **Carrello:**\n${gustiSceltiText}\n📊 **Totale Pezzi:** ${totalePezzi}`;
+        const spesaTotale = totalePezzi * PREZZO_UNITARIO;
+        const text = `🚀 **NUOVO ORDINE FiHP 200K**\n\n🏢 **Società:** Puff Oristano\n📱 **Contatto:** ${contact}\n\n📦 **Carrello:**\n${gustiSceltiText}\n📊 **Totale Pezzi:** ${totalePezzi}\n💰 **Totale Importo:** **${spesaTotale}€**`;
 
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
         
@@ -393,6 +494,7 @@
                 
                 document.getElementById('contact').value = '';
                 inputs.forEach(input => input.value = 0);
+                updateLiveTotal();
                 
                 setTimeout(() => { document.getElementById('successMessage').style.display = 'none'; }, 4000);
             } else { throw new Error('Errore Telegram'); }
