@@ -263,7 +263,6 @@
         .status-error { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
         .status-warning { background: rgba(255, 165, 2, 0.1); color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.2); margin-top: 10px; }
 
-        /* STILE PULSANTE WHATSAPP FLUTTUANTE */
         .whatsapp-btn {
             position: fixed;
             bottom: 20px;
@@ -282,13 +281,93 @@
             z-index: 9999;
             transition: transform 0.3s ease;
         }
-        .whatsapp-btn:hover {
-            transform: scale(1.05);
+        .whatsapp-btn:hover { transform: scale(1.05); }
+        .whatsapp-btn svg { width: 18px; height: 18px; fill: white; }
+
+        /* ── POPUP ── */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
-        .whatsapp-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: white;
+        .popup-overlay.show {
+            display: flex;
+        }
+        .popup-box {
+            background: #1c1d24;
+            border: 1px solid #2a2b36;
+            border-radius: 24px;
+            padding: 40px 28px 28px;
+            max-width: 340px;
+            width: 100%;
+            text-align: center;
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.75) translateY(30px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* cerchio con spunta animata */
+        .checkmark-wrap {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 22px;
+        }
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3;
+            stroke: #2ed573;
+            fill: none;
+            animation: strokeCircle 0.5s ease forwards 0.1s;
+        }
+        .checkmark-check {
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke-width: 3;
+            stroke: #2ed573;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: strokeCheck 0.3s ease forwards 0.6s;
+        }
+        @keyframes strokeCircle {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes strokeCheck {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .popup-box h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .popup-box p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        .popup-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
         }
     </style>
 </head>
@@ -401,9 +480,23 @@
 
         <button type="submit" id="submitBtn" class="submit-btn">Conferma Prenotazione</button>
         
-        <div id="successMessage" class="status-message status-success">✅ Richiesta inviata! Ti scriveremo a breve.</div>
         <div id="errorMessage" class="status-message status-error">❌ Errore di connessione. Riprova.</div>
     </form>
+</div>
+
+<!-- POPUP ORDINE INVIATO -->
+<div class="popup-overlay" id="popupSuccess">
+    <div class="popup-box">
+        <div class="checkmark-wrap">
+            <svg viewBox="0 0 52 52" width="80" height="80">
+                <circle class="checkmark-circle" cx="26" cy="26" r="24"/>
+                <polyline class="checkmark-check" points="14,26 22,34 38,18"/>
+            </svg>
+        </div>
+        <h2>Ordine inviato!</h2>
+        <p>La tua prenotazione è stata ricevuta con successo. Ti contatteremo a breve.</p>
+        <button class="popup-btn" onclick="document.getElementById('popupSuccess').classList.remove('show')">Perfetto, grazie!</button>
+    </div>
 </div>
 
 <a href="https://wa.me/447352813508" class="whatsapp-btn" target="_blank">
@@ -414,11 +507,9 @@
 </a>
 
 <script>
-    // --- DATI DI TELEGRAM VERIFICATI E FUNZIONANTI ---
     const BOT_TOKEN = '8806109821:AAF6LUzSn2eNU2vO7yy1WDkYUPmutDB2_jA'; 
     const CHAT_ID = '-1003705720150';
     const PREZZO_UNITARIO = 20;
-    // -------------------------------------------------
 
     function updateQty(inputId, change) {
         const input = document.getElementById(inputId);
@@ -426,7 +517,6 @@
         if (newValue < 0) newValue = 0;
         if (newValue > 99) newValue = 99;
         input.value = newValue;
-        
         updateLiveTotal();
     }
 
@@ -436,7 +526,6 @@
         inputs.forEach(input => {
             totalePezzi += parseInt(input.value);
         });
-        
         document.getElementById('totalPieces').innerText = totalePezzi;
         document.getElementById('totalPrice').innerText = (totalePezzi * PREZZO_UNITARIO) + '€';
     }
@@ -489,14 +578,11 @@
         .then(response => response.json())
         .then(data => {
             if(data.ok) {
-                document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('errorMessage').style.display = 'none';
-                
                 document.getElementById('contact').value = '';
                 inputs.forEach(input => input.value = 0);
                 updateLiveTotal();
-                
-                setTimeout(() => { document.getElementById('successMessage').style.display = 'none'; }, 4000);
+                // mostra popup
+                document.getElementById('popupSuccess').classList.add('show');
             } else { throw new Error('Errore Telegram'); }
         })
         .catch(error => {
@@ -511,4 +597,4 @@
 </script>
 
 </body>
-</html> 
+</html>
