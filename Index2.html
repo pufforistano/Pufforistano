@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puff Oristano - Drop FiHP 200K</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #14161d;
+            --card-hover: #1b1e27;
+            --primary: #00f2fe;
+            --primary-gradient: linear-gradient(135deg, #0072ff 0%, #00f2fe 100%);
+            --text-main: #ffffff;
+            --text-muted: #9499b0;
+            --border: #222533;
+            --border-hover: #313549;
+            --price-color: #00ff87;
+            --price-gradient: linear-gradient(135deg, #11ffbd 0%, #abffb2 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 20px 12px 40px;
+            -webkit-font-smoothing: antialiased;
+            background-image: radial-gradient(circle at top center, rgba(0, 242, 254, 0.05), transparent 60%);
+        }
+
+        .app-container {
+            max-width: 460px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .badge {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .hero-container {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+        }
+
+        .hero-img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            max-height: 220px;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero-container:hover .hero-img {
+            transform: scale(1.03);
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #b3b8d4;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .contact-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 242, 254, 0.15), inset 0 2px 4px rgba(0,0,0,0.2);
+            background: var(--card-hover);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            letter-spacing: 0.5px;
+            color: #f1f3f9;
+        }
+
+        .flavor-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .flavor-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-hover);
+            background: var(--card-hover);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .flavor-thumb {
+            width: 54px;
+            height: 54px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 14px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-color);
+            flex-shrink: 0;
+        }
+
+        .flavor-info {
+            flex: 1;
+            padding-right: 12px;
+            min-width: 0;
+        }
+
+        .flavor-name-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .flavor-name {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .flavor-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--price-color);
+            margin-left: 8px;
+            background: var(--price-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .flavor-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            background: #0b0c10;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        .stepper button {
+            background: transparent;
+            color: #b3b8d4;
+            border: none;
+            width: 32px;
+            height: 32px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border-radius: 8px;
+        }
+
+        .stepper button:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+        
+        .stepper button:active {
+            transform: scale(0.9);
+        }
+
+        .stepper input {
+            width: 28px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .price-summary {
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.03) 0%, rgba(0, 242, 254, 0.03) 100%);
+            border: 1px dashed rgba(0, 255, 135, 0.25);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .summary-label {
+            font-size: 15px;
+            color: #b3b8d4;
+            font-weight: 500;
+        }
+
+        .summary-total {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--price-color);
+            background: var(--price-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: #000;
+            border: none;
+            padding: 18px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 242, 254, 0.4);
+            filter: brightness(1.05);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .status-message {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .status-success { background: rgba(46, 213, 115, 0.1); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.2); }
+        .status-error { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
+        .status-warning { background: rgba(255, 165, 2, 0.1); color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.2); margin-top: 12px; }
+
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+            z-index: 9999;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .whatsapp-btn:hover { 
+            transform: translateY(-3px) scale(1.03); 
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        }
+        .whatsapp-btn svg { width: 20px; height: 20px; fill: white; }
+
+        /* ── POPUP ── */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 6, 8, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .popup-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+        .popup-box {
+            background: #14161d;
+            border: 1px solid #222533;
+            border-radius: 28px;
+            padding: 45px 32px 32px;
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+            transform: scale(0.8) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .popup-overlay.show .popup-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .checkmark-wrap {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+        }
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3;
+            stroke: #00ff87;
+            fill: none;
+            animation: strokeCircle 0.5s ease forwards 0.1s;
+        }
+        .checkmark-check {
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke-width: 3;
+            stroke: #00ff87;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: strokeCheck 0.3s ease forwards 0.6s;
+        }
+        @keyframes strokeCircle {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes strokeCheck {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .popup-box h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .popup-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .popup-btn {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .popup-btn:hover {
+            filter: brightness(1.05);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <span class="badge">Esclusiva 8-in-1</span>
+        <h1>Puff Oristano</h1>
+        <div class="subtitle">Prenotazione FiHP 200K</div>
+    </div>
+
+    <div class="hero-container">
+        <img src="1000151219.png" alt="FiHP 200K Puffs" class="hero-img">
+    </div>
+
+    <form id="orderForm">
+        
+        <div class="input-group">
+            <label for="contact">Come ti contattiamo?</label>
+            <input type="text" id="contact" class="contact-input" placeholder="@tuo_instagram o +39..." required autocomplete="off">
+        </div>
+
+        <div class="section-title">Componi il tuo ordine</div>
+
+        <div class="flavor-card">
+            <img src="01.png" alt="01" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">01. Red Bull Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Red Bull, Blueberry Ice, Watermelon Ice, Strawberry Kiwi</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty1', -1)">-</button>
+                <input type="number" id="qty1" class="flavor-input" data-name="01. Red Bull Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty1', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="flavor-card">
+            <img src="03.png" alt="03" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">03. Lemon Peach Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Lemon Peach, Tropical Fruit, Pineapple Coconut, Blue Razz</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty3', -1)">-</button>
+                <input type="number" id="qty3" class="flavor-input" data-name="03. Lemon Peach Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty3', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="flavor-card">
+            <img src="05.png" alt="05" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">05. Grape Ice Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Grape Ice, Peach Berry, Fizzy Cherry Ice, Gummy Bear</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty5', -1)">-</button>
+                <input type="number" id="qty5" class="flavor-input" data-name="05. Grape Ice Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty5', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="flavor-card">
+            <img src="06.png" alt="06" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">06. Love 666 Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Love 666, Pineapple Mango Peach, Cherry Cola Ice, Rainbow Candy</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty6', -1)">-</button>
+                <input type="number" id="qty6" class="flavor-input" data-name="06. Love 666 Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty6', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="flavor-card">
+            <img src="07.png" alt="07" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">07. Orange Soda Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Orange Soda, Watermelon Lemon, Watermelon Bubblegum, Lady Killa</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty7', -1)">-</button>
+                <input type="number" id="qty7" class="flavor-input" data-name="07. Orange Soda Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty7', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="price-summary">
+            <span class="summary-label">Totale (<span id="totalPieces">0</span> pz):</span>
+            <span class="summary-total" id="totalPrice">0€</span>
+        </div>
+
+        <div id="validationWarning" class="status-message status-warning">⚠️ Aggiungi almeno 1 pezzo al carrello.</div>
+
+        <button type="submit" id="submitBtn" class="submit-btn">Conferma Prenotazione</button>
+        
+        <div id="errorMessage" class="status-message status-error">❌ Errore di connessione. Riprova.</div>
+    </form>
+</div>
+
+<div class="popup-overlay" id="popupSuccess">
+    <div class="popup-box">
+        <div class="checkmark-wrap">
+            <svg viewBox="0 0 52 52" width="80" height="80">
+                <circle class="checkmark-circle" cx="26" cy="26" r="24"/>
+                <polyline class="checkmark-check" points="14,26 22,34 38,18"/>
+            </svg>
+        </div>
+        <h2>Ordine inviato!</h2>
+        <p>La tua prenotazione è stata ricevuta con successo. Ti contatteremo a breve.</p>
+        <button class="popup-btn" onclick="closePopup()">Perfetto, grazie!</button>
+    </div>
+</div>
+
+<a href="https://wa.me/447352813508" class="whatsapp-btn" target="_blank">
+    <svg viewBox="0 0 24 24">
+        <path d="M12.004 2c-5.517 0-9.996 4.478-9.996 9.995 0 1.763.458 3.42 1.258 4.873l-1.336 4.887 5.006-1.314c1.4.757 2.99 1.189 4.68 1.189 5.517 0 9.996-4.478 9.996-9.995 0-5.517-4.479-9.995-9.996-9.995zm4.721 14.195c-.21.592-1.222 1.127-1.68 1.168-.459.04-1.011.066-1.651
