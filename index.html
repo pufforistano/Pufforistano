@@ -4,336 +4,511 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puff Oristano - Drop FiHP 200K</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #08090d;
-            --surface: #111318;
-            --surface2: #181b23;
-            --border: rgba(255,255,255,0.07);
-            --border-hover: rgba(255,255,255,0.14);
-            --cyan: #00e5ff;
-            --cyan-dim: rgba(0,229,255,0.12);
-            --green: #00e87a;
-            --green-dim: rgba(0,232,122,0.1);
-            --muted: #5a5f72;
-            --text: #e8eaf0;
+            --bg-color: #0f1015;
+            --card-bg: #1c1d24;
+            --primary: #00f2fe;
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --text-main: #ffffff;
+            --text-muted: #8b8d97;
+            --border: #2a2b36;
+            --price-color: #2ed573;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
-            padding: 24px 16px 80px;
+            padding: 15px 10px 30px;
             -webkit-font-smoothing: antialiased;
         }
-        .app { max-width: 440px; width: 100%; }
 
-        /* HEADER */
-        .header { text-align: center; padding: 12px 0 28px; }
+        .app-container {
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: var(--cyan-dim); color: var(--cyan);
-            border: 1px solid rgba(0,229,255,0.2);
-            padding: 5px 14px; border-radius: 100px;
-            font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
-            text-transform: uppercase; margin-bottom: 14px;
+            background: rgba(79, 172, 254, 0.15);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .badge::before {
-            content: ''; width: 6px; height: 6px; border-radius: 50%;
-            background: var(--cyan); animation: pulse 2s infinite;
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-top: 5px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-        h1 { font-size: 36px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; color: #fff; }
-        h1 span { background: linear-gradient(90deg, var(--cyan) 0%, #7b61ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .subtitle { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 500; }
 
-        /* HERO */
-        .hero-wrap { position: relative; margin-bottom: 28px; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); }
-        .hero-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,9,13,0.7) 0%, transparent 50%); pointer-events: none; }
-        .hero-img { width: 100%; height: 190px; object-fit: cover; display: block; }
-        .hero-tag { position: absolute; bottom: 14px; left: 14px; z-index: 1; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); border: 1px solid var(--border-hover); border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 700; color: var(--cyan); letter-spacing: 0.5px; }
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-weight: 500;
+        }
 
-        /* FIELD */
-        .field { margin-bottom: 24px; }
-        .field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-        .field input { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 14px 16px; border-radius: 12px; font-size: 14px; font-family: 'Inter', sans-serif; transition: border-color 0.2s, box-shadow 0.2s; }
-        .field input::placeholder { color: var(--muted); }
-        .field input:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,229,255,0.1); }
+        .hero-img {
+            width: 100%;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            max-height: 200px;
+        }
 
-        /* SECTION TITLE */
-        .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        .input-group {
+            margin-bottom: 15px;
+        }
 
-        /* FLAVOR CARD */
-        .flavor-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; transition: border-color 0.2s, background 0.2s; }
-        .flavor-card:hover { border-color: var(--border-hover); background: var(--surface2); }
-        .flavor-card.active { border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.04); }
-        .flavor-thumb { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); background: var(--bg); flex-shrink: 0; }
-        .flavor-info { flex: 1; min-width: 0; }
-        .flavor-name { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
-        .flavor-desc { font-size: 10px; color: var(--muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .flavor-price { font-size: 13px; font-weight: 800; color: var(--green); text-align: right; margin-bottom: 6px; }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
 
-        /* STEPPER */
-        .stepper { display: flex; align-items: center; gap: 2px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 2px; flex-shrink: 0; }
-        .stepper button { background: transparent; border: none; color: var(--text); width: 30px; height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: background 0.15s, color 0.15s; line-height: 1; font-family: 'Inter', sans-serif; }
-        .stepper button:hover { background: var(--surface2); color: var(--cyan); }
-        .stepper .qty-display { width: 26px; text-align: center; color: #fff; font-weight: 800; font-size: 13px; font-family: 'Inter', sans-serif; user-select: none; }
+        .contact-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
 
-        /* SUMMARY */
-        .price-summary { background: var(--green-dim); border: 1px solid rgba(0,232,122,0.2); border-radius: 14px; padding: 16px 20px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .summary-left { display: flex; flex-direction: column; gap: 2px; }
-        .summary-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .summary-pieces { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
-        .summary-pieces span { font-size: 12px; color: var(--muted); font-weight: 500; margin-left: 4px; }
-        .summary-total { font-size: 28px; font-weight: 900; color: var(--green); letter-spacing: -1px; }
+        .contact-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.15);
+        }
 
-        /* WARNING */
-        .warning { display: none; background: rgba(255,165,2,0.08); border: 1px solid rgba(255,165,2,0.25); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: #ffa502; font-weight: 600; margin-top: 10px; text-align: center; }
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 20px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
 
-        /* SUBMIT */
-        .submit-btn { width: 100%; background: linear-gradient(135deg, var(--cyan) 0%, #7b61ff 100%); color: #000; border: none; padding: 17px; border-radius: 12px; font-size: 15px; font-weight: 800; margin-top: 14px; cursor: pointer; letter-spacing: 0.3px; transition: opacity 0.2s, transform 0.15s; font-family: 'Inter', sans-serif; }
-        .submit-btn:hover { opacity: 0.92; transform: translateY(-1px); }
-        .submit-btn:active { transform: translateY(0); }
-        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        .btn-inner { display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .spinner { width: 16px; height: 16px; border: 2px solid rgba(0,0,0,0.3); border-top-color: #000; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .flavor-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
 
-        /* POPUP */
-        .popup-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
-        .popup-overlay.show { display: flex; }
-        .popup { background: var(--surface); border: 1px solid var(--border-hover); border-radius: 22px; padding: 36px 28px 28px; max-width: 360px; width: 100%; text-align: center; animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        @keyframes popIn { from { opacity:0; transform:scale(0.8) translateY(20px); } to { opacity:1; transform:scale(1) translateY(0); } }
-        .popup-icon { width: 72px; height: 72px; background: var(--green-dim); border: 2px solid rgba(0,232,122,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px; }
-        .popup-icon.error-icon { background: rgba(255,77,109,0.1); border-color: rgba(255,77,109,0.3); }
-        .popup h2 { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 10px; letter-spacing: -0.5px; }
-        .popup p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
-        .popup-close { width: 100%; background: var(--surface2); border: 1px solid var(--border-hover); color: var(--text); padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s; }
-        .popup-close:hover { background: rgba(255,255,255,0.08); }
-        .popup-close-green { background: var(--green-dim); border-color: rgba(0,232,122,0.25); color: var(--green); }
-        .popup-close-green:hover { background: rgba(0,232,122,0.15); }
+        .flavor-thumb {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 12px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-color);
+            flex-shrink: 0;
+        }
 
-        /* WHATSAPP */
-        .wa-btn { position: fixed; bottom: 20px; right: 16px; background: #25d366; color: #fff; border-radius: 100px; padding: 12px 18px; display: flex; align-items: center; gap: 8px; text-decoration: none; font-size: 12px; font-weight: 700; font-family: 'Inter', sans-serif; box-shadow: 0 4px 20px rgba(37,211,102,0.35); z-index: 9000; transition: transform 0.2s, box-shadow 0.2s; letter-spacing: 0.3px; }
-        .wa-btn:hover { transform: scale(1.04); box-shadow: 0 6px 28px rgba(37,211,102,0.45); }
-        .wa-btn svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
+        .flavor-info {
+            flex: 1;
+            padding-right: 10px;
+            min-width: 0;
+        }
+
+        .flavor-name-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flavor-name {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .flavor-price {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--price-color);
+            margin-left: 5px;
+        }
+
+        .flavor-desc {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .stepper button {
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stepper input {
+            width: 24px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 13px;
+            pointer-events: none;
+        }
+
+        .price-summary {
+            background: rgba(46, 213, 115, 0.05);
+            border: 1px dashed rgba(46, 213, 115, 0.3);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .summary-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--price-color);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 15px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .status-message {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .status-success { background: rgba(46, 213, 115, 0.1); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.2); }
+        .status-error { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
+        .status-warning { background: rgba(255, 165, 2, 0.1); color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.2); margin-top: 10px; }
+
+        /* STILE PULSANTE WHATSAPP FLUTTUANTE */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+        }
+        .whatsapp-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
     </style>
 </head>
 <body>
 
-<div class="app">
+<div class="app-container">
     <div class="header">
-        <div class="badge">Esclusiva 8-in-1</div>
-        <h1>Puff <span>Oristano</span></h1>
-        <div class="subtitle">Drop FiHP 200K · Prenota il tuo kit</div>
+        <span class="badge">Esclusiva 8-in-1</span>
+        <h1>Puff Oristano</h1>
+        <div class="subtitle">Prenotazione FiHP 200K</div>
     </div>
 
-    <div class="hero-wrap">
-        <img src="1000151219.png" alt="FiHP 200K" class="hero-img">
-        <div class="hero-tag">FiHP 200K — 20€/pz</div>
-    </div>
+    <img src="1000151219.png" alt="FiHP 200K Puffs" class="hero-img">
 
     <form id="orderForm">
-        <div class="field">
-            <label for="contact">Come ti contattiamo</label>
-            <input type="text" id="contact" placeholder="@tuo_instagram oppure +39 123..." required autocomplete="off">
+        
+        <div class="input-group">
+            <label for="contact">Come ti contattiamo?</label>
+            <input type="text" id="contact" class="contact-input" placeholder="@tuo_instagram o +39..." required autocomplete="off">
         </div>
 
-        <div class="section-title">Scegli i gusti</div>
+        <div class="section-title">Componi il tuo ordine</div>
 
-        <div class="flavor-card" id="card-f1">
-            <img src="01.png" alt="" class="flavor-thumb" onerror="this.style.display='none'">
+        <div class="flavor-card">
+            <img src="01.png" alt="01" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">01 · Red Bull Mix</div>
-                <div class="flavor-desc">Red Bull · Blueberry Ice · Watermelon Ice · Strawberry Kiwi</div>
-            </div>
-            <div>
-                <div class="flavor-price">20€</div>
-                <div class="stepper">
-                    <button type="button" data-id="f1" data-dir="-1">−</button>
-                    <span class="qty-display" id="qty-f1">0</span>
-                    <button type="button" data-id="f1" data-dir="1">+</button>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">01. Red Bull Mix</div>
+                    <div class="flavor-price">20€</div>
                 </div>
+                <div class="flavor-desc">Red Bull, Blueberry Ice, Watermelon Ice, Strawberry Kiwi</div>
             </div>
-        </div>
-
-        <div class="flavor-card" id="card-f3">
-            <img src="03.png" alt="" class="flavor-thumb" onerror="this.style.display='none'">
-            <div class="flavor-info">
-                <div class="flavor-name">03 · Lemon Peach Mix</div>
-                <div class="flavor-desc">Lemon Peach · Tropical Fruit · Pineapple Coconut · Blue Razz</div>
-            </div>
-            <div>
-                <div class="flavor-price">20€</div>
-                <div class="stepper">
-                    <button type="button" data-id="f3" data-dir="-1">−</button>
-                    <span class="qty-display" id="qty-f3">0</span>
-                    <button type="button" data-id="f3" data-dir="1">+</button>
-                </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty1', -1)">-</button>
+                <input type="number" id="qty1" class="flavor-input" data-name="01. Red Bull Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty1', 1)">+</button>
             </div>
         </div>
 
-        <div class="flavor-card" id="card-f5">
-            <img src="05.png" alt="" class="flavor-thumb" onerror="this.style.display='none'">
+        <div class="flavor-card">
+            <img src="03.png" alt="03" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">05 · Grape Ice Mix</div>
-                <div class="flavor-desc">Grape Ice · Peach Berry · Fizzy Cherry Ice · Gummy Bear</div>
-            </div>
-            <div>
-                <div class="flavor-price">20€</div>
-                <div class="stepper">
-                    <button type="button" data-id="f5" data-dir="-1">−</button>
-                    <span class="qty-display" id="qty-f5">0</span>
-                    <button type="button" data-id="f5" data-dir="1">+</button>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">03. Lemon Peach Mix</div>
+                    <div class="flavor-price">20€</div>
                 </div>
+                <div class="flavor-desc">Lemon Peach, Tropical Fruit, Pineapple Coconut, Blue Razz</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty3', -1)">-</button>
+                <input type="number" id="qty3" class="flavor-input" data-name="03. Lemon Peach Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty3', 1)">+</button>
             </div>
         </div>
 
-        <div class="flavor-card" id="card-f6">
-            <img src="06.png" alt="" class="flavor-thumb" onerror="this.style.display='none'">
+        <div class="flavor-card">
+            <img src="05.png" alt="05" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">06 · Love 666 Mix</div>
-                <div class="flavor-desc">Love 666 · Pineapple Mango Peach · Cherry Cola Ice · Rainbow Candy</div>
-            </div>
-            <div>
-                <div class="flavor-price">20€</div>
-                <div class="stepper">
-                    <button type="button" data-id="f6" data-dir="-1">−</button>
-                    <span class="qty-display" id="qty-f6">0</span>
-                    <button type="button" data-id="f6" data-dir="1">+</button>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">05. Grape Ice Mix</div>
+                    <div class="flavor-price">20€</div>
                 </div>
+                <div class="flavor-desc">Grape Ice, Peach Berry, Fizzy Cherry Ice, Gummy Bear</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty5', -1)">-</button>
+                <input type="number" id="qty5" class="flavor-input" data-name="05. Grape Ice Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty5', 1)">+</button>
             </div>
         </div>
 
-        <div class="flavor-card" id="card-f7">
-            <img src="07.png" alt="" class="flavor-thumb" onerror="this.style.display='none'">
+        <div class="flavor-card">
+            <img src="06.png" alt="06" class="flavor-thumb" onerror="this.style.display='none'">
             <div class="flavor-info">
-                <div class="flavor-name">07 · Orange Soda Mix</div>
-                <div class="flavor-desc">Orange Soda · Watermelon Lemon · Watermelon Bubblegum · Lady Killa</div>
-            </div>
-            <div>
-                <div class="flavor-price">20€</div>
-                <div class="stepper">
-                    <button type="button" data-id="f7" data-dir="-1">−</button>
-                    <span class="qty-display" id="qty-f7">0</span>
-                    <button type="button" data-id="f7" data-dir="1">+</button>
+                <div class="flavor-name-row">
+                    <div class="flavor-name">06. Love 666 Mix</div>
+                    <div class="flavor-price">20€</div>
                 </div>
+                <div class="flavor-desc">Love 666, Pineapple Mango Peach, Cherry Cola Ice, Rainbow Candy</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty6', -1)">-</button>
+                <input type="number" id="qty6" class="flavor-input" data-name="06. Love 666 Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty6', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="flavor-card">
+            <img src="07.png" alt="07" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">07. Orange Soda Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc">Orange Soda, Watermelon Lemon, Watermelon Bubblegum, Lady Killa</div>
+            </div>
+            <div class="stepper">
+                <button type="button" onclick="updateQty('qty7', -1)">-</button>
+                <input type="number" id="qty7" class="flavor-input" data-name="07. Orange Soda Mix" value="0" readonly>
+                <button type="button" onclick="updateQty('qty7', 1)">+</button>
             </div>
         </div>
 
         <div class="price-summary">
-            <div class="summary-left">
-                <div class="summary-label">Totale pezzi</div>
-                <div class="summary-pieces"><span id="totalPieces">0</span><span>pz</span></div>
-            </div>
-            <div class="summary-total" id="totalPrice">0€</div>
+            <span class="summary-label">Totale (<span id="totalPieces">0</span> pz):</span>
+            <span class="summary-total" id="totalPrice">0€</span>
         </div>
 
-        <div id="validationWarning" class="warning">Aggiungi almeno 1 pezzo al carrello.</div>
+        <div id="validationWarning" class="status-message status-warning">⚠️ Aggiungi almeno 1 pezzo al carrello.</div>
 
-        <button type="submit" id="submitBtn" class="submit-btn">
-            <div class="btn-inner">
-                <div class="spinner" id="spinner"></div>
-                <span id="btnText">Conferma Prenotazione</span>
-            </div>
-        </button>
+        <button type="submit" id="submitBtn" class="submit-btn">Conferma Prenotazione</button>
+        
+        <div id="successMessage" class="status-message status-success">✅ Richiesta inviata! Ti scriveremo a breve.</div>
+        <div id="errorMessage" class="status-message status-error">❌ Errore di connessione. Riprova.</div>
     </form>
 </div>
 
-<!-- POPUP SUCCESSO -->
-<div class="popup-overlay" id="popupSuccess">
-    <div class="popup">
-        <div class="popup-icon">✅</div>
-        <h2>Prenotazione inviata!</h2>
-        <p>La tua richiesta è stata ricevuta con successo.<br>Ti contatteremo a breve al recapito che ci hai fornito.</p>
-        <button type="button" class="popup-close popup-close-green" id="closeSuccess">Perfetto, grazie!</button>
-    </div>
-</div>
-
-<!-- POPUP ERRORE -->
-<div class="popup-overlay" id="popupError">
-    <div class="popup">
-        <div class="popup-icon error-icon">❌</div>
-        <h2>Errore di connessione</h2>
-        <p>Qualcosa è andato storto. Controlla la connessione e riprova, oppure scrivici su WhatsApp.</p>
-        <button type="button" class="popup-close" id="closeError">Riprova</button>
-    </div>
-</div>
-
-<!-- WHATSAPP -->
-<a href="https://wa.me/447352813508" class="wa-btn" target="_blank">
-    <svg viewBox="0 0 24 24"><path d="M12.004 2c-5.517 0-9.996 4.478-9.996 9.995 0 1.763.458 3.42 1.258 4.873l-1.336 4.887 5.006-1.314c1.4.757 2.99 1.189 4.68 1.189 5.517 0 9.996-4.478 9.996-9.995 0-5.517-4.479-9.995-9.996-9.995zm4.721 14.195c-.21.592-1.222 1.127-1.68 1.168-.459.04-1.011.066-1.651-.141-2.909-.942-4.856-3.83-5.002-4.023-.146-.192-1.183-1.572-1.183-2.996 0-1.424.746-2.124 1.011-2.407.265-.283.582-.353.776-.353.195 0 .39.002.56.011.177.01.415-.069.649.479.243.573.83 2.02.902 2.164.072.145.12.313.022.509-.098.196-.146.318-.292.49-.146.173-.307.385-.439.516-.146.145-.3.303-.128.598.172.295.765 1.261 1.642 2.042.129.115.228.182.355.226.402.13.769.112 1.058.069.322-.048.991-.406 1.13-.798.139-.392.139-.728.097-.798-.041-.07-.167-.111-.351-.203-.183-.093-1.084-.535-1.25-.595-.166-.06-.287-.092-.41.092-.122.185-.473.595-.58 1.171a.333.333 0 01-.166.19c-.318.156-1.264.466-2.408-.553-.889-.792-1.49-1.77-1.664-2.069-.174-.298-.019-.459.131-.607.135-.133.298-.348.447-.522.149-.174.199-.298.298-.497.1-.198.05-.373-.025-.522-.075-.149-.665-1.603-.913-2.195-.24-.576-.486-.497-.665-.506-.172-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413z"/></svg>
-    Contattaci
+<a href="https://wa.me/447352813508" class="whatsapp-btn" target="_blank">
+    <svg viewBox="0 0 24 24">
+        <path d="M12.004 2c-5.517 0-9.996 4.478-9.996 9.995 0 1.763.458 3.42 1.258 4.873l-1.336 4.887 5.006-1.314c1.4.757 2.99 1.189 4.68 1.189 5.517 0 9.996-4.478 9.996-9.995 0-5.517-4.479-9.995-9.996-9.995zm4.721 14.195c-.21.592-1.222 1.127-1.68 1.168-.459.04-1.011.066-1.651-.141-2.909-.942-4.856-3.83-5.002-4.023-.146-.192-1.183-1.572-1.183-2.996 0-1.424.746-2.124 1.011-2.407.265-.283.582-.353.776-.353.195 0 .39.002.56.011.177.01.415-.069.649.479.243.573.83 2.02.902 2.164.072.145.12.313.022.509-.098.196-.146.318-.292.49-.146.173-.307.385-.439.516-.146.145-.3.303-.128.598.172.295.765 1.261 1.642 2.042.129.115.228.182.355.226.402.13.769.112 1.058.069.322-.048.991-.406 1.13-.798.139-.392.139-.728.097-.798-.041-.07-.167-.111-.351-.203-.183-.093-1.084-.535-1.25-.595-.166-.06-.287-.092-.41.092-.122.185-.473.595-.58 1.171a.333.333 0 01-.166.19c-.318.156-1.264.466-2.408-.553-.889-.792-1.49-1.77-1.664-2.069-.174-.298-.019-.459.131-.607.135-.133.298-.348.447-.522.149-.174.199-.298.298-.497.1-.198.05-.373-.025-.522-.075-.149-.665-1.603-.913-2.195-.24-.576-.486-.497-.665-.506-.172-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413z"/>
+    </svg>
+    <span>Contattaci</span>
 </a>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-
-    const BOT_TOKEN = '8806109821:AAF6LUzSn2eNU2vO7yy1WDkYUPmutDB2_jA';
+    // --- DATI DI TELEGRAM VERIFICATI E FUNZIONANTI ---
+    const BOT_TOKEN = '8806109821:AAF6LUzSn2eNU2vO7yy1WDkYUPmutDB2_jA'; 
     const CHAT_ID = '-1003705720150';
-    const PREZZO = 20;
+    const PREZZO_UNITARIO = 20;
+    // -------------------------------------------------
 
-    // Mappa gusti
-    const flavors = {
-        f1: { name: '01. Red Bull Mix', qty: 0 },
-        f3: { name: '03. Lemon Peach Mix', qty: 0 },
-        f5: { name: '05. Grape Ice Mix', qty: 0 },
-        f6: { name: '06. Love 666 Mix', qty: 0 },
-        f7: { name: '07. Orange Soda Mix', qty: 0 }
-    };
+    function updateQty(inputId, change) {
+        const input = document.getElementById(inputId);
+        let newValue = parseInt(input.value) + change;
+        if (newValue < 0) newValue = 0;
+        if (newValue > 99) newValue = 99;
+        input.value = newValue;
+        
+        updateLiveTotal();
+    }
 
-    function updateDisplay() {
-        let total = 0;
-        Object.keys(flavors).forEach(function(id) {
-            var qty = flavors[id].qty;
-            document.getElementById('qty-' + id).textContent = qty;
-            var card = document.getElementById('card-' + id);
-            if (qty > 0) {
-                card.classList.add('active');
-            } else {
-                card.classList.remove('active');
-            }
-            total += qty;
+    function updateLiveTotal() {
+        const inputs = document.querySelectorAll('.flavor-input');
+        let totalePezzi = 0;
+        inputs.forEach(input => {
+            totalePezzi += parseInt(input.value);
         });
-        document.getElementById('totalPieces').textContent = total;
-        document.getElementById('totalPrice').textContent = (total * PREZZO) + '€';
+        
+        document.getElementById('totalPieces').innerText = totalePezzi;
+        document.getElementById('totalPrice').innerText = (totalePezzi * PREZZO_UNITARIO) + '€';
     }
 
-    // Stepper buttons via event delegation
-    document.addEventListener('click', function(e) {
-        var btn = e.target.closest('button[data-id]');
-        if (!btn) return;
-        var id = btn.getAttribute('data-id');
-        var dir = parseInt(btn.getAttribute('data-dir'));
-        if (!flavors[id]) return;
-        flavors[id].qty = Math.max(0, Math.min(99, flavors[id].qty + dir));
-        updateDisplay();
-    });
-
-    // Popup
-    function showPopup(id) {
-        document.getElementById(id).classList.add('show');
-    }
-    function closePopup(id) {
-        document.getElementById(id).classList.remove('show');
-    }
-
-    document.getElementById('closeSuccess').addEventListener('click', function() { closePopup('popupSuccess'); });
-    document.getElementById('closeError').addEventListener('click', function() { closePopup('popupError'); });
-
-    document.querySelectorAll('.popup-overlay').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-            if (e.target === el) closePopup(el.id);
-        });
-    });
-
-    // Form submit
     document.getElementById('orderForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        
+        const warning = document.getElementById('validationWarning');
+        const btn = document.getElementById('submitBtn');
+        const contact = document.getElementById('contact').value;
+        
+        const inputs = document.querySelectorAll('.flavor-input');
+        let gustiSceltiText = "";
+        let totalePezzi = 0;
 
-        var warning = docume
+        inputs.forEach(input => {
+            const qty = parseInt(input.value);
+            if (qty > 0) {
+                const name = input.getAttribute('data-name');
+                gustiSceltiText += `🔹 ${name}: **x${qty}**\n`;
+                totalePezzi += qty;
+            }
+        });
+
+        if (totalePezzi === 0) {
+            warning.style.display = 'block';
+            setTimeout(() => { warning.style.display = 'none'; }, 3000);
+            return;
+        } else {
+            warning.style.display = 'none';
+        }
+        
+        btn.innerText = 'Invio in corso...';
+        btn.disabled = true;
+
+        const spesaTotale = totalePezzi * PREZZO_UNITARIO;
+        const text = `🚀 **NUOVO ORDINE FiHP 200K**\n\n🏢 **Società:** Puff Oristano\n📱 **Contatto:** ${contact}\n\n📦 **Carrello:**\n${gustiSceltiText}\n📊 **Totale Pezzi:** ${totalePezzi}\n💰 **Totale Importo:** **${spesaTotale}€**`;
+
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: text,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.ok) {
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+                
+                document.getElementById('contact').value = '';
+                inputs.forEach(input => input.value = 0);
+                updateLiveTotal();
+                
+                setTimeout(() => { document.getElementById('successMessage').style.display = 'none'; }, 4000);
+            } else { throw new Error('Errore Telegram'); }
+        })
+        .catch(error => {
+            document.getElementById('errorMessage').style.display = 'block';
+            setTimeout(() => { document.getElementById('errorMessage').style.display = 'none'; }, 4000);
+        })
+        .finally(() => {
+            btn.innerText = 'Conferma Prenotazione';
+            btn.disabled = false;
+        });
+    });
+</script>
+
+</body>
+</html> 
