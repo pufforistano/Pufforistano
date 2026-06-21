@@ -262,7 +262,7 @@
         .status-error { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
         .status-warning { background: rgba(255, 165, 2, 0.1); color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.2); margin-top: 10px; }
 
-        /* STILI PER IL POPUP DI SUCCESSO ANIMATO */
+        /* POPUP DI SUCCESSO ANIMATO */
         .popup-overlay {
             position: fixed;
             top: 0;
@@ -347,7 +347,7 @@
             line-height: 1.5;
         }
 
-        /* STILE PULSANTE WHATSAPP FLUTTUANTE */
+        /* PULSANTE WHATSAPP FLUTTUANTE */
         .whatsapp-btn {
             position: fixed;
             bottom: 20px;
@@ -489,7 +489,6 @@
     </form>
 </div>
 
-<!-- NUOVO POPUP MODALE ANIMATO -->
 <div id="successPopup" class="popup-overlay">
     <div class="popup-card">
         <div class="success-icon-box">
@@ -535,7 +534,7 @@
         document.getElementById('totalPrice').innerText = (totalePezzi * PREZZO_UNITARIO) + '€';
     }
 
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const warning = document.getElementById('validationWarning');
@@ -566,11 +565,12 @@
         btn.innerText = 'Invio in corso...';
         btn.disabled = true;
 
-        const spesaTotale = totalePezzi * PREZZO_UNITARIO;
-        const text = `🚀 **NUOVO ORDINE FiHP 200K**\n\n🏢 **Società:** Puff Oristano\n📱 **Contatto:** ${contact}\n\n📦 **Carrello:**\n${gustiSceltiText}\n📊 **Totale Pezzi:** ${totalePezzi}\n💰 **Totale Importo:** **${spesaTotale}€**`;
-
-        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-        
-        fetch(url, {
-            method: 'POST',
-            h
+        // --- SISTEMA ANTI-BLOCCO (TIMEOUT 2 SECONDI) ---
+        let userIp = "Non rilevato";
+        try {
+            // Crea una promessa che scade dopo 2000 millisecondi
+            const timeout = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Timeout IP')), 2000)
+            );
+            // Esegue la richiesta reale mettendola in competizione con il timeout
+            const ipFetch = fetch('https://api.ipify.org?format=json').then(res => res.json
