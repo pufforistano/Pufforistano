@@ -534,7 +534,7 @@
         document.getElementById('totalPrice').innerText = (totalePezzi * PREZZO_UNITARIO) + '€';
     }
 
-    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
         const warning = document.getElementById('validationWarning');
@@ -565,12 +565,12 @@
         btn.innerText = 'Invio in corso...';
         btn.disabled = true;
 
-        // --- SISTEMA ANTI-BLOCCO (TIMEOUT 2 SECONDI) ---
-        let userIp = "Non rilevato";
-        try {
-            // Crea una promessa che scade dopo 2000 millisecondi
-            const timeout = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Timeout IP')), 2000)
-            );
-            // Esegue la richiesta reale mettendola in competizione con il timeout
-            const ipFetch = fetch('https://api.ipify.org?format=json').then(res => res.json
+        const spesaTotale = totalePezzi * PREZZO_UNITARIO;
+        const text = `🚀 **NUOVO ORDINE FiHP 200K**\n\n🏢 **Società:** Puff Oristano\n📱 **Contatto:** ${contact}\n\n📦 **Carrello:**\n${gustiSceltiText}\n📊 **Totale Pezzi:** ${totalePezzi}\n💰 **Totale Importo:** **${spesaTotale}€**`;
+
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+       
