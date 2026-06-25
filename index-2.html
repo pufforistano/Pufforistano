@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puff Oristano - Drop FiHP 200K</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1015;
+            --card-bg: #1c1d24;
+            --primary: #00f2fe;
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --text-main: #ffffff;
+            --text-muted: #8b8d97;
+            --border: #2a2b36;
+            --price-color: #2ed573;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 15px 10px 30px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-container {
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: rgba(79, 172, 254, 0.15);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-top: 5px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .hero-img {
+            width: 100%;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            max-height: 200px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .contact-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.15);
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 20px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* ── FLAVOR CARD ── */
+        .flavor-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* overlay grigio quando sold out */
+        .flavor-card.sold-out {
+            border-color: rgba(255, 71, 87, 0.25);
+        }
+
+        .flavor-card.sold-out::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 16, 21, 0.45);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .flavor-thumb {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 12px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-color);
+            flex-shrink: 0;
+        }
+
+        .flavor-info {
+            flex: 1;
+            padding-right: 10px;
+            min-width: 0;
+        }
+
+        .flavor-name-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .flavor-name {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .flavor-price {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--price-color);
+            flex-shrink: 0;
+        }
+
+        .flavor-desc {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* badge SOLD OUT */
+        .sold-out-badge {
+            display: none;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ff4757;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .flavor-card.sold-out .sold-out-badge {
+            display: block;
+        }
+
+        /* ── STEPPER ── */
+        .stepper {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .stepper button {
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+
+        .stepper button:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+
+        .stepper input {
+            width: 24px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 13px;
+            pointer-events: none;
+        }
+
+        /* ── PRICE SUMMARY ── */
+        .price-summary {
+            background: rgba(46, 213, 115, 0.05);
+            border: 1px dashed rgba(46, 213, 115, 0.3);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .summary-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--price-color);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 15px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+            transition: opacity 0.2s;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ── STATUS MESSAGES ── */
+        .status-message {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-success { background: rgba(46, 213, 115, 0.1); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.2); }
+        .status-error   { background: rgba(255, 71, 87, 0.1);  color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
+        .status-warning { background: rgba(255, 165, 2, 0.1);  color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.2); margin-top: 10px; }
+
+        /* ── WHATSAPP BTN ── */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-btn:hover { transform: scale(1.05); }
+        .whatsapp-btn svg { width: 18px; height: 18px; fill: white; }
+
+        /* ── POPUP ── */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .popup-overlay.show { display: flex; }
+
+        .popup-box {
+            background: #1c1d24;
+            border: 1px solid #2a2b36;
+            border-radius: 24px;
+            padding: 40px 28px 28px;
+            max-width: 340px;
+            width: 100%;
+            text-align: center;
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.75) translateY(30px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .checkmark-wrap { width: 80px; height: 80px; margin: 0 auto 22px; }
+
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3;
+            stroke: #2ed573;
+            fill: none;
+            animation: strokeCircle 0.5s ease forwards 0.1s;
+        }
+        .checkmark-check {
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke-width: 3;
+            stroke: #2ed573;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: strokeCheck 0.3s ease forwards 0.6s;
+        }
+        @keyframes strokeCircle { to { stroke-dashoffset: 0; } }
+        @keyframes strokeCheck  { to { stroke-dashoffset: 0; } }
+
+        .popup-box h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .popup-box p  { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 28px; }
+
+        .popup-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <span class="badge">Esclusiva 8-in-1</span>
+        <h1>Puff Oristano</h1>
+        <div class="subtitle">Prenotazione FiHP 200K</div>
+    </div>
+
+    <img src="1000151219.png" alt="FiHP 200K Puffs" class="hero-img">
+
+    <form id="orderForm">
+
+        <div class="input-group">
+            <label for="contact">Come ti contattiamo?</label>
+            <input type="text" id="contact" class="contact-input" placeholder="@tuo_instagram o +39..." required autocomplete="off">
+        </div>
+
+        <div class="section-title">Componi il tuo ordine</div>
+
+        <!-- FLAVOR 01 -->
+        <div class="flavor-card" id="card-qty1">
+            <span class="sold-out-badge">SOLD OUT</span>
+            <img src="01.png" alt="01" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">01. Red Bull Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc" id="desc-qty1">Red Bull, Energy Ice, Citrus Mix, Strawberry Energy</div>
+            </div>
+            <div class="stepper">
+                <button type="button" id="btn-minus-qty1" onclick="updateQty('qty1', -1)">-</button>
+                <input type="number" id="qty1" class="flavor-input" data-name="01. Red Bull Mix" value="0" readonly>
+                <button type="button" id="btn-plus-qty1" onclick="updateQty('qty1', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- FLAVOR 03 -->
+        <div class="flavor-card" id="card-qty3">
+            <span class="sold-out-badge">SOLD OUT</span>
+            <img src="03.png" alt="03" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">03. Lemon Peach Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc" id="desc-qty3">Lemon Peach, Tropical Fruit, Pineapple Coconut, Blue Razz</div>
+            </div>
+            <div class="stepper">
+                <button type="button" id="btn-minus-qty3" onclick="updateQty('qty3', -1)">-</button>
+                <input type="number" id="qty3" class="flavor-input" data-name="03. Lemon Peach Mix" value="0" readonly>
+                <button type="button" id="btn-plus-qty3" onclick="updateQty('qty3', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- FLAVOR 05 -->
+        <div class="flavor-card" id="card-qty5">
+            <span class="sold-out-badge">SOLD OUT</span>
+            <img src="05.png" alt="05" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">05. Grape Ice Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc" id="desc-qty5">Grape Ice, Peach Berry, Fizzy Cherry Ice, Gummy Bear</div>
+            </div>
+            <div class="stepper">
+                <button type="button" id="btn-minus-qty5" onclick="updateQty('qty5', -1)">-</button>
+                <input type="number" id="qty5" class="flavor-input" data-name="05. Grape Ice Mix" value="0" readonly>
+                <button type="button" id="btn-plus-qty5" onclick="updateQty('qty5', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- FLAVOR 06 -->
+        <div class="flavor-card" id="card-qty6">
+            <span class="sold-out-badge">SOLD OUT</span>
+            <img src="06.png" alt="06" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">06. Love 666 Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc" id="desc-qty6">Love 666, Pineapple Mango Peach, Cherry Cola Ice, Rainbow Candy</div>
+            </div>
+            <div class="stepper">
+                <button type="button" id="btn-minus-qty6" onclick="updateQty('qty6', -1)">-</button>
+                <input type="number" id="qty6" class="flavor-input" data-name="06. Love 666 Mix" value="0" readonly>
+                <button type="button" id="btn-plus-qty6" onclick="updateQty('qty6', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- FLAVOR 07 -->
+        <div class="flavor-card" id="card-qty7">
+            <span class="sold-out-badge">SOLD OUT</span>
+            <img src="07.png" alt="07" class="flavor-thumb" onerror="this.style.display='none'">
+            <div class="flavor-info">
+                <div class="flavor-name-row">
+                    <div class="flavor-name">07. Orange Soda Mix</div>
+                    <div class="flavor-price">20€</div>
+                </div>
+                <div class="flavor-desc" id="desc-qty7">Orange Soda, Watermelon Lemon, Watermelon Bubblegum, Lady Killa</div>
+            </div>
+            <div class="stepper">
+                <button type="button" id="btn-minus-qty7" onclick="updateQty('qty7', -1)">-</button>
+                <input type="number" id="qty7" class="flavor-input" data-name="07. Orange Soda Mix" value="0" readonly>
+                <button type="button" id="btn-plus-qty7" onclick="updateQty('qty7', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="price-summary">
+            <span class="summary-label">Totale (<span id="totalPieces">0</span> pz):</span>
+            <span class="summary-total" id="totalPrice">0€</span>
+        </div>
+
+        <div id="validationWarning" class="status-message status-warning">⚠️ Aggiungi almeno 1 pezzo al carrello.</div>
+
+        <button type="submit" id="submitBtn" class="submit-btn">Conferma Prenotazione</button>
+
+        <div id="errorMessage" class="status-message status-error">❌ Errore di connessione. Riprova.</div>
+    </form>
+</div>
+
+<!-- POPUP ORDINE INVIATO -->
+<div class="popup-overlay" id="popupSuccess">
+    <div class="popup-box">
+        <div class="checkmark-wrap">
+            <svg viewBox="0 0 52 52" width="80" height="80">
+                <circle class="checkmark-circle" cx="26" cy="26" r="24"/>
+                <polyline class="checkmark-check" points="14,26 22,34 38,18"/>
+            </svg>
+        </div>
+        <h2>Ordine inviato!</h2>
+        <p>La tua prenotazione è stata ricevuta con successo. Ti contatteremo a breve.</p>
+        <button class="popup-btn" onclick="document.getElementById('popupSuccess').classList.remove('show')">Perfetto, grazie!</button>
+    </div>
+</div>
+
+<a href="https://wa.me/447352813508" class="whatsapp-btn" target="_blank">
+    <svg viewBox="0 0 24 24">
+        <path d="M12.004 2c-5.517 0-9.996 4.478-9.996 9.995 0 1.763.458 3.42 1.258 4.873l-1.336 4.887 5.006-1.314c1.4.757 2.99 1.189 4.68 1.189 5.517 0 9.996-4.478 9.996-9.995 0-5.517-4.479-9.995-9.996-9.995zm4.721 14.195c-.21.592-1.222 1.127-1.68 1.168-.459.04-1.011.066-1.651-.141-2.909-.942-4.856-3.83-5.002-4.023-.146-.192-1.183-1.572-1.183-2.996 0-1.424.746-2.124 1.011-2.407.265-.283.582-.353.776-.353.195 0 .39.002.56.011.177.01.415-.069.649.479.243.573.83 2.02.902 2.164.072.145.12.313.022.509-.098.196-.146.318-.292.49-.146.173-.307.385-.439.516-.146.145-.3.303-.128.598.172.295.765 1.261 1.642 2.042.129.115.228.182.355.226.402.13.769.112 1.058.069.322-.048.991-.406 1.13-.798.139-.392.139-.728.097-.798-.041-.07-.167-.111-.351-.203-.183-.093-1.084-.535-1.25-.595-.166-.06-.287-.092-.41.092-.122.185-.473.595-.58 1.171a.333.333 0 01-.166.19c-.318.156-1.264.466-2.408-.553-.889-.792-1.49-1.77-1.664-2.069-.174-.298-.019-.459.131-.607.135-.133.298-.348.447-.522.149-.174.199-.298.298-.497.1-.198.05-.373-.025-.522-.075-.149-.665-1.603-.913-2.195-.24-.576-.486-.497-.665-.506-.172-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413z"/>
+    </svg>
+    <span>Contattaci</span>
+</a>
+
+<script>
+    const BOT_TOKEN = '8806109821:AAF6LUzSn2eNU2vO7yy1WDkYUPmutDB2_jA';
+    const CHAT_ID = '-1003705720150';
+    const PREZZO_UNITARIO = 20;
+
+    /* ── CARICA SCORTE DA stock.json ── */
+    async function loadStock() {
+        try {
+            const res = await fetch('stock.json?t=' + Date.now());
+            const stock = await res.json();
+
+            Object.keys(stock).forEach(id => {
+                const input = document.getElementById(id);
+                if (!input) return;
+
+                const card      = document.getElementById('card-' + id);
+                const btnMinus  = document.getElementById('btn-minus-' + id);
+                const btnPlus   = document.getElementById('btn-plus-' + id);
+
+                if (stock[id] <= 0) {
+                    // Sold out: aggiungi classe, blocca bottoni, azzera qty
+                    card.classList.add('sold-out');
+                    btnMinus.disabled = true;
+                    btnPlus.disabled  = true;
+                    input.value = 0;
+                } else {
+                    // Disponibile: rimuovi eventuale sold-out residuo
+                    card.classList.remove('sold-out');
+                    btnMinus.disabled = false;
+                    btnPlus.disabled  = false;
+                }
+            });
+
+            updateLiveTotal();
+        } catch(e) {
+            console.warn('Impossibile caricare stock.json:', e);
+        }
+    }
+
+    /* ── STEPPER ── */
+    function updateQty(inputId, change) {
+        const input = document.getElementById(inputId);
+        // Non fare nulla se il prodotto è sold out
+        const card = document.getElementById('card-' + inputId);
+        if (card.classList.contains('sold-out')) return;
+
+        let newValue = parseInt(input.value) + change;
+        if (newValue < 0)  newValue = 0;
+        if (newValue > 99) newValue = 99;
+        input.value = newValue;
+        updateLiveTotal();
+    }
+
+    /* ── TOTALE LIVE ── */
+    function updateLiveTotal() {
+        const inputs = document.querySelectorAll('.flavor-input');
+        let totalePezzi = 0;
+        inputs.forEach(input => {
+            totalePezzi += parseInt(input.value);
+        });
+        document.getElementById('totalPieces').innerText = totalePezzi;
+        document.getElementById('totalPrice').innerText  = (totalePezzi * PREZZO_UNITARIO) + '€';
+    }
+
+    /* ── SUBMIT ── */
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const warning = document.getElementById('validationWarning');
+        const errorEl = document.getElementById('errorMessage');
+        const btn     = document.getElementById('submitBtn');
+        const contact = document.getElementById('contact').value.trim();
+
+        const inputs = document.querySelectorAll('.flavor-input');
+        let gustiSceltiText = '';
+        let totalePezzi = 0;
+
+        inputs.forEach(input => {
+            const qty = parseInt(input.value);
+            if (qty > 0) {
+                const name = input.getAttribute('data-name');
+                gustiSceltiText += `🔹 ${name}: x${qty}\n`;
+                totalePezzi += qty;
+            }
+        });
+
+        if (totalePezzi === 0) {
+            warning.style.display = 'block';
+            setTimeout(() => { warning.style.display = 'none'; }, 3000);
+            return;
+        }
+
+        warning.style.display = 'none';
+        btn.innerText  = 'Invio in corso...';
+        btn.disabled   = true;
+        errorEl.style.display = 'none';
+
+        const spesaTotale = totalePezzi * PREZZO_UNITARIO;
+        const messaggio =
+            `🛒 *NUOVA PRENOTAZIONE — FiHP 200K*\n\n` +
+            `👤 Contatto: ${contact}\n\n` +
+            `${gustiSceltiText}\n` +
+            `📦 Totale pezzi: ${totalePezzi}\n` +
+            `💶 Totale: ${spesaTotale}€`;
+
+        try {
+            const response = await fetch(
+                `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: messaggio,
+                        parse_mode: 'Markdown'
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (data.ok) {
+                document.getElementById('popupSuccess').classList.add('show');
+                document.getElementById('orderForm').reset();
+                inputs.forEach(i => { i.value = 0; });
+                updateLiveTotal();
+            } else {
+                throw new Error('Telegram error: ' + JSON.stringify(data));
+            }
+        } catch (err) {
+            console.error(err);
+            errorEl.style.display = 'block';
+        } finally {
+            btn.innerText = 'Conferma Prenotazione';
+            btn.disabled  = false;
+        }
+    });
+
+    /* ── AVVIO ── */
+    loadStock();
+</script>
+
+</body>
+</html>
